@@ -22,6 +22,13 @@ class MealDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
         nameTextField.delegate = self
         
+        if let meal = meal {
+            navigationItem.title = meal.name
+            nameTextField.text = meal.name
+            photoImageView.image = meal.photo
+            ratingControl.rating = meal.rating
+        }
+        
         updateSaveButtonState()
     }
     

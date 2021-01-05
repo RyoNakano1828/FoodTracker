@@ -36,7 +36,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="lhA-25-9PO" userLabel="RaitingControl" customClass="RatingController" customModule="FoodTracker" customModuleProvider="target">
-                                            <rect key="frame" x="93" y="29" width="282" height="49"/>
+                                            <rect key="frame" x="93" y="29" width="282" height="50"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         </stackView>
                                     </subviews>
@@ -45,6 +45,7 @@
                                     <outlet property="nameLabel" destination="bVV-Vt-OEl" id="X4Q-iQ-SUB"/>
                                     <outlet property="photoImageView" destination="m8l-Ng-ENu" id="3OS-vO-Hj4"/>
                                     <outlet property="ratingControl" destination="lhA-25-9PO" id="xYQ-5l-3nF"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="ShowDetail" id="bCc-KO-ehz"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -126,7 +127,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="fl6-Dk-tla">
                             <connections>
-                                <segue destination="gWU-SU-yPq" kind="unwind" unwindAction="unwindToMealListWithSender:" id="ms5-UC-iTc"/>
+                                <segue destination="gWU-SU-yPq" kind="unwind" unwindAction="unwindToMealListWithSender:" id="dz2-3D-H2c"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -163,9 +164,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o6E-KB-qxd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-881.15942028985512" y="93.75"/>
+            <point key="canvasLocation" x="-870" y="94"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="ydm-En-FhR"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="defaultPhoto" width="540" height="540"/>
         <systemColor name="systemBackgroundColor">
