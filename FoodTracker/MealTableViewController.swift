@@ -19,8 +19,11 @@ class MealTableViewController: UITableViewController {
         navigationItem.leftBarButtonItem = editButtonItem
 
         //Load the sample data
-        loadSampleMeals()
-        
+        if let savedMeals = loadMeals() {
+            meals += savedMeals
+        } else {
+            loadSampleMeals()
+        }
     }
 
     // MARK: - Table view data source
@@ -65,6 +68,8 @@ class MealTableViewController: UITableViewController {
                 meals.append(meal)
                 tableView.insertRows(at: [newIndexPath], with: .automatic)
             }
+            
+            saveMeals()
         }
     }
 
@@ -82,6 +87,8 @@ class MealTableViewController: UITableViewController {
         if editingStyle == .delete {
             // Delete the row from the data source
             meals.remove(at: indexPath.row)
+            saveMeals()
+            
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -150,6 +157,32 @@ class MealTableViewController: UITableViewController {
         }
         
         meals += [meal1, meal2, meal3]
+    }
+    
+    private func saveMeals() {
+        guard let archiveData = try? NSKeyedArchiver.archivedData(withRootObject: meals, requiringSecureCoding: false) else {
+            fatalError("Unable to archive meals")
+        }
+        
+        do {
+            try archiveData.write(to: Meal.ArchiveURL)
+            os_log("Meals successfully saved", log: OSLog.default, type: .debug)
+        } catch {
+            os_log("Failed to save meal...", log: OSLog.default, type: .error)
+        }
+    }
+    
+    private func loadMeals() -> [Meal]? {
+        do {
+            let data = try Data.init(contentsOf: Meal.ArchiveURL)
+            if let loadedData = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [Meal] {
+                os_log("Meals successfully loaded", log: OSLog.default, type: .debug)
+                return loadedData
+            }
+        } catch {
+            os_log("Failed to save meal...", log: OSLog.default, type: .error)
+        }
+        return nil
     }
 
 
